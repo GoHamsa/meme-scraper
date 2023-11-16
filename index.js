@@ -3,21 +3,15 @@
 import cheerio from 'cheerio';
 import download from 'image-downloader';
 
-// URL of the page you want to fetch
-const url = 'https://memegen-link-examples-upleveled.netlify.app/';
+const url = 'https://memegen-link-examples-upleveled.netlify.app/'; // fetch page from URL
 
-// Use a method like fetch to get the HTML content from a webpage
+// get HTML content from a page
 fetch(url)
   .then((response) => response.text())
   .then((htmlContent) => {
-    // Load the HTML content into Cheerio
-    const $ = cheerio.load(htmlContent);
-
-    // Get all the <img> tags on the page
-    const imgTags = $('img');
-
-    // Create an array to store the image source URLs
-    const imgSrcArray = [];
+    const $ = cheerio.load(htmlContent); // Load the HTML content into Cheerio
+    const imgTags = $('img'); // Get all the <img> tags on the page
+    const imgSrcArray = []; // Create an array to store the image source URLs
 
     // Loop through the first 10 <img> tags and extract the image source
     imgTags.slice(0, 10).each((index, imgTag) => {
@@ -25,7 +19,7 @@ fetch(url)
       imgSrcArray.push(imgSrc);
     });
 
-    // Now, you can download the images
+    // download images
     imgSrcArray.forEach((imgSrc, index) => {
       const options = {
         url: imgSrc,
